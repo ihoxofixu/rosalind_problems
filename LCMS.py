@@ -1,4 +1,4 @@
-def f(length):
+def common_substr_of_len(length):
     d = {}
     for i in a:
         d_tmp = {}
@@ -33,7 +33,7 @@ left = 0
 right = len(min(a)) + 1
 while left != right - 1:
     mid = (left + right) // 2
-    if f(mid) != '':
+    if common_substr_of_len(mid) != '':
         left = mid
     else:
         right = mid
