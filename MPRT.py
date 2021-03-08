@@ -19,4 +19,24 @@ def get_polypeptide(str):
     return polypeptide
 
 
-print(get_polypeptide(input()))
+def N_glycosylation_motif(str):
+    return str[0] == 'N' \
+        and str[1] != 'P' \
+        and (str[2] == 'S' or str[2] == 'T') \
+        and str[3] != 'P'
+
+
+s = input()
+all_proteins = []
+while s != '':
+    all_proteins.append(s)
+    s = input()
+for protein in all_proteins:
+    primary = get_polypeptide(protein)
+    tmp = []
+    for i in range(len(primary) - 3):
+        if N_glycosylation_motif(primary[i:i+4]):
+            tmp.append(i+1)
+    if tmp:
+        print(protein)
+        print(*tmp)
