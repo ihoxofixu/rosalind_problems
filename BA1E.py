@@ -20,5 +20,5 @@ def Clumps(text, L, t, k):
 
 
 dna = input()
-k, L, t =  map(int, input().split())
+k, L, t = map(int, input().split())
 print(*Clumps(dna, L, t, k))
