@@ -6,10 +6,12 @@ def hamming_distance(s1, s2):
     return ans
 
 
-def PatternCount(text, pattern, dist):
+def ApproximatePatternCount(text, pattern, dist):
     count = []
     for i in range(len(text) - len(pattern) + 1):
-        if hamming_distance(text[i:i+len(pattern)], pattern) <= dist:
+        pattern1 = text[i:i+len(pattern)]
+        mismatches = hamming_distance(pattern1, pattern)
+        if mismatches <= dist:
             count.append(i)
     return count
 
@@ -17,4 +19,6 @@ def PatternCount(text, pattern, dist):
 substr = input()
 dna = input()
 d = int(input())
-print(*PatternCount(dna, substr, d))
+ans = ApproximatePatternCount(dna, substr, d)
+for i in ans:
+    print(i, end=' ')
