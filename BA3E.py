@@ -5,18 +5,22 @@ def splicer(reads):
     return list(ans)
 
 
-kmers = []
+def construct_de_brujn(kmers):
+    comp = splicer(kmers)
+    adj_matrix = [[0 for j in range(len(comp))] for i in range(len(comp))]
+    for i in kmers:
+        starting_node = comp.index(i[:-1])
+        ending_node = comp.index(i[1:])
+        adj_matrix[starting_node][ending_node] += 1
+    return adj_matrix, comp
+
+
+list_of_kmers = []
 tmp = input()
 while tmp != '':
-    kmers.append(tmp)
+    list_of_kmers.append(tmp)
     tmp = input()
-composition = splicer(kmers)
-adjacency_matrix = [[0 for j in range(len(composition))]
-                    for i in range(len(composition))]
-for i in kmers:
-    starting_node = composition.index(i[:-1])
-    ending_node = composition.index(i[1:])
-    adjacency_matrix[starting_node][ending_node] += 1
+adjacency_matrix, composition = construct_de_brujn(list_of_kmers)
 for i in range(len(adjacency_matrix)):
     starting_node = composition[i]
     nodes = []
