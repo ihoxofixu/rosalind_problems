@@ -7,4 +7,4 @@ tmp = input()
 while tmp != '':
     list_of_kmers.append(tmp)
     tmp = input()
-print(reconstruct_string(k, list_of_kmers))
+print(reconstruct_string(list_of_kmers))
