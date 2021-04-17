@@ -35,11 +35,6 @@ def construct_de_bruijn_graph(kmers):
         adj_list[starting_balancing_vertex].append(ending_balancing_vertex)
         edges_to_do += 1
         if_cercular = False
-    for i in range(len(adj_list)):
-        print(key_value[i], end='->')
-        for j in range(len(adj_list[i])):
-            print(key_value[adj_list[i][j]], end=' ')
-        print()
     return adj_list, key_value, edges_to_do, ending_balancing_vertex,  \
         if_cercular
 
@@ -96,7 +91,6 @@ def find_eurelian_path(kmers):
     real_vertex_path = []
     for i in range(len(path)):
         real_vertex_path.append(key_value[path[i]])
-    print(*real_vertex_path)
     return real_vertex_path
 
 
