@@ -23,16 +23,25 @@ def construct_de_bruijn_graph(kmers):
         vertex_balancing[ending_vertex] += 1
         adj_list[starting_vertex].append(ending_vertex)
         edges_to_do += 1
-    starting_balancing_vertex = 0
-    ending_balancing_vertex = 0
+    starting_balancing_vertex = -1
+    ending_balancing_vertex = -1
     for i in range(len(vertex_balancing)):
         if vertex_balancing[i] == 1:
             starting_balancing_vertex = i
         elif vertex_balancing[i] == -1:
             ending_balancing_vertex = i
-    adj_list[starting_balancing_vertex].append(ending_balancing_vertex)
-    edges_to_do += 1
-    return adj_list, key_value, edges_to_do, ending_balancing_vertex
+    if_cercular = True
+    if starting_balancing_vertex != -1 and ending_balancing_vertex != -1:
+        adj_list[starting_balancing_vertex].append(ending_balancing_vertex)
+        edges_to_do += 1
+        if_cercular = False
+    for i in range(len(adj_list)):
+        print(key_value[i], end='->')
+        for j in range(len(adj_list[i])):
+            print(key_value[adj_list[i][j]], end=' ')
+        print()
+    return adj_list, key_value, edges_to_do, ending_balancing_vertex,  \
+        if_cercular
 
 
 def all_vertex_edges_done(vertex_id, adj_list, visited):
@@ -54,7 +63,7 @@ def able_to_move(vertex_start, vertex_end, adj_list, visited):
 
 
 def find_eurelian_path(kmers):
-    adj_list, key_value, edges_to_do, real_path_begining = \
+    adj_list, key_value, edges_to_do, real_path_begining, if_cercular = \
         construct_de_bruijn_graph(kmers)
     visited_list = []
     for i in range(len(adj_list)):
@@ -82,9 +91,12 @@ def find_eurelian_path(kmers):
     for i in range(edges_done):
         if path[i] == real_path_begining:
             path = path[i:] + path[:i]
+    if if_cercular:
+        path.append(path[0])
     real_vertex_path = []
     for i in range(len(path)):
         real_vertex_path.append(key_value[path[i]])
+    print(*real_vertex_path)
     return real_vertex_path
 
 
